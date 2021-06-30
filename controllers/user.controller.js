@@ -1,11 +1,11 @@
-const { User } = require("../models/user.model");
-
 var jwt = require("jsonwebtoken");
 require("dotenv").config();
-const JWT_KEY = process.env.JWT_KEY;
 var bcrypt = require("bcrypt");
-
 const { extend } = require("lodash");
+
+const { User } = require("../models/user.model");
+
+const JWT_KEY = process.env.JWT_KEY;
 
 const addNewUser = async (req, res) => {
    try {
@@ -70,7 +70,7 @@ const loginUser = async (req, res) => {
 const resetOrUpdateUserPassword = async (req, res) => {
    try {
       const { email, password } = req.body;
-      const updateUserPassword = { password: password };
+      const updateUserPassword = { password };
       let user = await User.findOne({ email: email });
 
       if (!user) {
@@ -122,12 +122,10 @@ const attemptedQuizAndSetHighScore = async (req, res) => {
       if (!userHighScore) {
          user.highScore.push({ level: attemptedLevel, score: newScore, attempts: 1 });
          await user.save();
-         return res
-            .status(200)
-            .json({
-               message: "new high score",
-               newHighScore: { level: attemptedLevel, score: newScore, attempts: 1 },
-            });
+         return res.status(200).json({
+            message: "new high score",
+            newHighScore: { level: attemptedLevel, score: newScore, attempts: 1 },
+         });
       }
 
       userHighScore.attempts += 1;

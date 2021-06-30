@@ -1,6 +1,6 @@
 const { Quiz } = require("../models/quiz.model");
 
-const loadQuizBank = async (req, res) => {
+const addNewQuiz = async (req, res) => {
    try {
       const { loadQuiz } = req.body;
 
@@ -29,4 +29,4 @@ const checkLevelAndGetQuizBank = async (req, res) => {
    }
 };
 
-module.exports = { loadQuizBank, checkLevelAndGetQuizBank };
+module.exports = { addNewQuiz, checkLevelAndGetQuizBank };

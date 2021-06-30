@@ -1,6 +1,8 @@
 const express = require("express");
-require("body-parser");
+const app = express();
+const cors = require("cors");
 
+const dbConnect = require("./db/db.connect");
 const errorHandler = require("./middlewares/error-handler.middleware");
 const routeNotFound = require("./middlewares/route-not-found-handler.middleware");
 
@@ -8,13 +10,10 @@ const user = require("./routers/user.route");
 const quiz = require("./routers/quiz.route");
 const leaderBoard = require("./routers/leaderBoard.route");
 
-const app = express();
 app.use(express.json());
 
-const cors = require("cors");
 app.use(cors());
 
-const dbConnect = require("./db/db.connect");
 dbConnect();
 
 app.get("/", (req, res) => {
