@@ -37,9 +37,11 @@ const checkAndSetLeaderBoard = async (req, res) => {
       );
 
       selectLeaderBoard.standings = updatestandings;
-
       await selectLeaderBoard.save();
-      res.status(200).json({ isNewHighScore: true, selectLeaderBoard });
+
+      const leaderBoard = await LeaderBoard.find({});
+
+      res.status(200).json({ isNewHighScore: true, leaderBoard });
    } catch (error) {}
 };
 
